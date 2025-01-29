@@ -113,3 +113,33 @@ using Microsoft.EntityFrameworkCore;
 
 1. Add a reference to the NuGet package `Microsoft.EntityFrameworkCore.Tools` --version `9.0.1`.
 > If you're not using Visual Studio install the package from the command line in the `BackEnd` folder with `dotnet add package Microsoft.EntityFrameworkCore.Tools --version 9.0.1`
+
+**Visual Studio: Package Manager Console**
+
+1. In Visual Studio, select the Tools -> NuGet Package Manager -> Package Manager Console
+
+2. Run the following commands in the Package Manager Console
+
+```csharp
+Add-Migration Initial
+Update-Database
+```
+**Command line**
+
+1. Install the EntityFramework global tool `dotnet-ef` using the following command in the `BackEnd` folder:
+
+```markdown
+dotnet tool install -g dotnet-ef --version 3.1.3
+```
+2. Open a command prompt and navigate to the project directory. (The directory containing the `Program.cs` file).
+
+3. Run the following commands in the command prompt:
+
+```markdown
+dotnet build
+dotnet ef migrations add Initial
+dotnet ef database update
+```
+## Commands Explained
+| **Command** | **Description** |
+| `dotnet ef migrations add Initial` / `Add-Migration Initial` |
