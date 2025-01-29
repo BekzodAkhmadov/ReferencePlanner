@@ -3,7 +3,7 @@
 1. Create and add a new project named BackEnd and name the solution ConferencePlanner using File / New / ASP.NET Core Web Application. Select the Web API template, No Auth, no Docker support.
 
 ![alt text](img/vs2019-new-project.png)
-![alt text](img/image.png)
+![alt text](imgi/image-1.png)
 ![alt text](img/Third.png)
 
 > **Note:** If not using Visual Studio, create the project using `dotnet new webapi` at the cmd line, details as follows:
@@ -147,3 +147,19 @@ dotnet ef database update
 | `dotnet ef database update` / `Update-Database` | creates the database |
 
 > For more information on these commands and scaffolding in general, see [this tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model)
+
+> If your database ever gets in a bad state and you'd like to reset things, you can use `dotnet ef database drop` followed by `dotnet ef database update` to remove your database and run all migrations again.
+
+## A quick look at the Weather Forecast Controller
+
+First, open the `Controllers` folder and take a quick look at the `WeatherForecastController`. You'll see a simple function that corresponds to the HTTP GET verb. You'll see the output of this controller in a bit, but first we'll build our own API controller for the `Speakers` model class.
+
+## Scaffolding an API Controller
+
+**Using Visual Studio**
+
+1. Right-click the `Controllers` folder and select Add/Controller. Select "API Controller with actions, using Entity Framework".
+
+2. In the dialog, select the `Speaker` model for the Model Class, `ApplicationDbContext` for the "Data Context Class" and click the Add button.
+
+![alt text](image.png)
