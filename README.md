@@ -142,4 +142,4 @@ dotnet ef database update
 ```
 ## Commands Explained
 | **Command** | **Description** |
-| `dotnet ef migrations add Initial` / `Add-Migration Initial` |
+| `dotnet ef migrations add Initial` / `Add-Migration Initial` | generates code to create the initial database schema based on the model specified in `ApplicationDbContext.cs`. `Initial` is the name of the migration. |
