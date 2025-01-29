@@ -3,7 +3,7 @@
 1. Create and add a new project named BackEnd and name the solution ConferencePlanner using File / New / ASP.NET Core Web Application. Select the Web API template, No Auth, no Docker support.
 
 ![alt text](img/vs2019-new-project.png)
-![alt text](imgi/image-1.png)
+![alt text](img/image-1.png)
 ![alt text](img/Third.png)
 
 > **Note:** If not using Visual Studio, create the project using `dotnet new webapi` at the cmd line, details as follows:
@@ -162,4 +162,4 @@ First, open the `Controllers` folder and take a quick look at the `WeatherForeca
 
 2. In the dialog, select the `Speaker` model for the Model Class, `ApplicationDbContext` for the "Data Context Class" and click the Add button.
 
-![alt text](image.png)
+![alt text](img/Fourth.png)
