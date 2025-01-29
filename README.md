@@ -7,5 +7,9 @@
 
 **Note:** If not using Visual Studio, create the project using `dotnet new webapi` at the cmd line, details as follows:
 i. Create folder ConferencePlanner and call `dotnet new sln` at the cmd line to create a solution
+
+
 ii. Create sub-folder BackEnd and create a project using `dotnet new webapi` at the cmd line inside the folder BackEnd
+
+
 iii. From the ConferencePlanner folder, add the project to the solution using `dotnet sln add BackEnd/BackEnd.csproj`
