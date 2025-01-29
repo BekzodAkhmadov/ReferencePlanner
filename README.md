@@ -4,7 +4,7 @@
 
 ![alt text](img/vs2019-new-project.png)
 ![alt text](img/image.png)
-![alt text](img/Third.png)
+![alt text](img/image-1.png)
 
 > **Note:** If not using Visual Studio, create the project using `dotnet new webapi` at the cmd line, details as follows:
 >
