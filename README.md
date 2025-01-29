@@ -146,4 +146,4 @@ dotnet ef database update
 | `dotnet ef migrations add Initial` / `Add-Migration Initial` | generates code to create the initial database schema based on the model specified in `ApplicationDbContext.cs`. `Initial` is the name of the migration. |
 | `dotnet ef database update` / `Update-Database` | creates the database |
 
-> For more information on these commands and scaffolding in general, see ![this tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model)
+> For more information on these commands and scaffolding in general, see [this tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model)
