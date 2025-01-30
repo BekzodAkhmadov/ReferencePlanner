@@ -163,3 +163,65 @@ First, open the `Controllers` folder and take a quick look at the `WeatherForeca
 2. In the dialog, select the `Speaker` model for the Model Class, `ApplicationDbContext` for the "Data Context Class" and click the Add button.
 
 ![alt text](img/Fourth.png)
+
+**Using the cmd line**
+
+1. Install the "Microsoft.VisualStudio.Web.CodeGeneration.Design" package
+
+```markdown
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 9.0.0
+```
+2. Install the `aspnet-codegenerator` global tool by running the following command:
+
+```markdown
+dotnet tool install --global dotnet-aspnet-codegenerator --version 9.0.0
+```
+> Note: You will need to close and reopen the console window to be able to use this tool.
+
+3. Run the following in the project folder at the cmd line
+
+```markdown
+dotnet aspnet-codegenerator controller -api -name SpeakersController -m Speaker -dc BackEnd.Models.ApplicationDbContext -outDir Controllers
+```
+## Testing the API using the Swashbuckle
+
+1. Add a reference to the NuGet package `Swashbuckle.AspNetCore` --version `7.2.0`
+
+> This can be done from the command line using `dotnet add package Swashbuckle.AspNetCore --version 7.2.0`
+
+2. Add the Swashbuckle services in your Program.cs:
+
+```csharp
+builder.Services.AddSwaggerGen(options =>
+    options.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Conference Planner API", 
+        Version = "v1" 
+    })
+);
+```
+3. Ensure your `Program.cs` file contains the following 'using' statements:
+
+```csharp
+using Microsoft.OpenApi.Models;
+using System.Threading.Tasks;
+```
+4. Configure Swashbuckle by adding the following lines just before `UseRouting` in the `Configure` method in `Program.cs`:
+
+```markdown
+app.UseSwagger();
+
+app.UseSwaggerUI(options =>
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Planner API v1")
+);
+```
+5. Add a MapGet to the beginning of the `app.MapGet()` statement in the pipeline that redirects requests from the root of our application to the swagger end point.
+
+```csharp
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/swagger/");
+    return Task.CompletedTask;
+});
+```
+6. Run the application (F5 in Visual Studio or `dotnet run` from console).
