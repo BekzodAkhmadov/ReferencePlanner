@@ -1,47 +1,26 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace BackEnd.Migrations
 {
     /// <inheritdoc />
-    public partial class Refactor : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "WebSite",
-                table: "Speakers",
-                type: "character varying(1000)",
-                maxLength: 1000,
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "character varying(1000)",
-                oldMaxLength: 1000);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Bio",
-                table: "Speakers",
-                type: "character varying(4000)",
-                maxLength: 4000,
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "character varying(4000)",
-                oldMaxLength: 4000);
-
             migrationBuilder.CreateTable(
                 name: "Attendees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    UserName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    EmailAddress = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,12 +28,27 @@ namespace BackEnd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Speakers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    WebSite = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Speakers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tracks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,13 +59,13 @@ namespace BackEnd.Migrations
                 name: "Sessions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Abstract = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
-                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    TrackId = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Abstract = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    StartTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    EndTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    TrackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,8 +81,8 @@ namespace BackEnd.Migrations
                 name: "SessionAttendee",
                 columns: table => new
                 {
-                    SessionId = table.Column<int>(type: "integer", nullable: false),
-                    AttendeeId = table.Column<int>(type: "integer", nullable: false)
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    AttendeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,8 +105,8 @@ namespace BackEnd.Migrations
                 name: "SessionSpeaker",
                 columns: table => new
                 {
-                    SessionId = table.Column<int>(type: "integer", nullable: false),
-                    SpeakerId = table.Column<int>(type: "integer", nullable: false)
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    SpeakerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,31 +163,10 @@ namespace BackEnd.Migrations
                 name: "Sessions");
 
             migrationBuilder.DropTable(
+                name: "Speakers");
+
+            migrationBuilder.DropTable(
                 name: "Tracks");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "WebSite",
-                table: "Speakers",
-                type: "character varying(1000)",
-                maxLength: 1000,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "character varying(1000)",
-                oldMaxLength: 1000,
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Bio",
-                table: "Speakers",
-                type: "character varying(4000)",
-                maxLength: 4000,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "character varying(4000)",
-                oldMaxLength: 4000,
-                oldNullable: true);
         }
     }
 }

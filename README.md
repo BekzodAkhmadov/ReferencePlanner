@@ -225,3 +225,53 @@ app.MapGet("/", context =>
 });
 ```
 6. Run the application (F5 in Visual Studio or `dotnet run` from console).
+
+## Building out the Back End
+
+In this session, we'll add the rest of our models and controllers that expose them. We'll also refactor our application, moving our DTOs to a shared project so they can be used by our front-end application later.
+
+## Add a ConferenceDTO project
+
+> We'll start by creating the new shared project to hold our data transfer objects. 
+
+**Adding the ConferenceDTO Project using Visual Studio**
+
+1. If using Visual Studio, right-click on the Solution and select *Add / New Project....*
+2. Select *.NET Standard* from the project types on the left and select the *Class Library (.NET Standard)* template. Name the project ConferenceDTO and press OK.
+![alt text](img/Fifth.png)
+3. Delete the generated `Class1.cs` file from this new project.
+4. Right-click the 'Dependencies' node under the BackENd project, select "Add Reference..." and put a checkmark near ConferenceDTO.
+
+**Adding the ConferenceDTO project via the Command Line**
+
+1. Open a command prompt and navigate to the root `ConferencePlanner` directory.
+2. Run the following command:
+
+```markdown
+dotnet new classlib -o ConferenceDTO -f net6.0
+```
+3. Next we'll need to add a reference to the ConferenceDTO project from the BackEnd project. From the command line, navigate to the BackEnd project directory and execute the following command:
+
+```markdown
+dotnet add reference ../ConferenceDTO
+```
+4. Add the ConferenceDTO project to the solution:
+
+```markdown
+dotnet sln add ConferenceDTO/ConferenceDTO.csproj
+```
+**Refactoring the Speaker model into the ConferenceDTO project**
+
+1. Copy the `Speaker.cs` class from the *BackEnd* application into the root of the new ConferenceDTO project, and change the namespace to `ConferenceDTO`
+2. The data annotations references should be broken at this point, to resovle it, we need to add a nuget the missing NuGet package into the `ConferenceDTO` project.
+3. Add a reference to the NuGet package `System.ComponentModel.Annotations` --version `7.0.0`
+> This can be done from the command line using `dotnet add package System.ComponentModel.Annotations --version 7.0.0` 
+4. When the package restore completes, you should see that your data annotations are now resolved.
+5. Go back to the *BackEnd* application and modify the code in `Speaker.cs`as shown:
+
+```csharp
+public class Speaker : ConferenceDTO.Speaker
+{
+}
+```
+6. Run the application and view the Speakers data using the Swagger UI to verify everything still works.

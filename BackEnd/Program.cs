@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-internal class Program
+internal partial class Program
 {
     private static void Main(string[] args)
     {
@@ -12,7 +12,8 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+      options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 
         builder.Services.AddControllers();
@@ -26,10 +27,11 @@ internal class Program
             });
 
             // Include XML Comments for API Documentation
-          //  options.SchemaFilter<EnumSchemaFilter>();
+            options.SchemaFilter<EnumSchemaFilter>();
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory,xmlFile);
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
+
         });
 
 
@@ -41,7 +43,7 @@ internal class Program
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment()) 
         {
             app.UseSwagger();
             app.UseSwaggerUI(options =>
@@ -50,11 +52,14 @@ internal class Program
 
         app.UseHttpsRedirection();
 
+
         app.UseAuthorization();
 
         app.MapControllers();
 
         app.Run();
+
+
     }
 
 
