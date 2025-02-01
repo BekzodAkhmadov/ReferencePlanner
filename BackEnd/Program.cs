@@ -1,8 +1,10 @@
 using BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using static BackEnd.Controllers.SessionsController;
 
 internal partial class Program
 {
@@ -27,7 +29,13 @@ internal partial class Program
             });
 
             // Include XML Comments for API Documentation
-            options.SchemaFilter<EnumSchemaFilter>();
+            options.MapType<ConferenceFormat>(() => new OpenApiSchema
+            {
+                Type = "string",
+                Enum = Enum.GetNames(typeof(ConferenceFormat))
+            .Select(name => new OpenApiString(name))
+            .ToList<IOpenApiAny>()
+            });
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
