@@ -1,4 +1,4 @@
-using BackEnd.Models;
+using BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -26,8 +26,10 @@ internal class Program
             });
 
             // Include XML Comments for API Documentation
-            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+          //  options.SchemaFilter<EnumSchemaFilter>();
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory,xmlFile);
+            options.IncludeXmlComments(xmlPath);
         });
 
 

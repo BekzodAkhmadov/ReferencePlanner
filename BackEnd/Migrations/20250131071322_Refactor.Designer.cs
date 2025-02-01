@@ -3,6 +3,7 @@ using System;
 using BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250131071322_Refactor")]
+    partial class Refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +57,7 @@ namespace BackEnd.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("Attendees", (string)null);
+                    b.ToTable("Attendees");
                 });
 
             modelBuilder.Entity("BackEnd.Data.Session", b =>
@@ -87,7 +90,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("TrackId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("BackEnd.Data.SessionAttendee", b =>
@@ -102,7 +105,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("AttendeeId");
 
-                    b.ToTable("SessionAttendee", (string)null);
+                    b.ToTable("SessionAttendee");
                 });
 
             modelBuilder.Entity("BackEnd.Data.SessionSpeaker", b =>
@@ -117,7 +120,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("SpeakerId");
 
-                    b.ToTable("SessionSpeaker", (string)null);
+                    b.ToTable("SessionSpeaker");
                 });
 
             modelBuilder.Entity("BackEnd.Data.Speaker", b =>
@@ -143,7 +146,7 @@ namespace BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Speakers", (string)null);
+                    b.ToTable("Speakers");
                 });
 
             modelBuilder.Entity("BackEnd.Data.Track", b =>
@@ -161,7 +164,7 @@ namespace BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tracks", (string)null);
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("BackEnd.Data.Session", b =>
